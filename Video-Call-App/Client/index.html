@@ -3,15 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Video Call App</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Simple Video Call App</h1>
-  <video id="localVideo" autoplay muted></video>
-  <video id="remoteVideo" autoplay></video>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+    <title>Video Call App</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Welcome to the Video Call App</h1>
+    <input type="text" id="roomInput" placeholder="Enter Room ID" />
+    <button id="joinBtn">Join Room</button>
+  
+    <script>
+      document.getElementById('joinBtn').addEventListener('click', () => {
+        const room = document.getElementById('roomInput').value.trim();
+        if (room) {
+          window.location.href = `/room.html?room=${room}`;
+        } else {
+          alert('Please enter a room ID.');
+        }
+      });
+    </script>
+  </body>
+  </html

@@ -10,8 +10,6 @@ const io = new Server(server);
 app.use(express.static(path.join(__dirname, '../client')));
 
 io.on('connection', socket => {
-  console.log('User connected:', socket.id);
-
   socket.on('join-room', room => {
     socket.join(room);
     socket.to(room).emit('user-connected', socket.id);
@@ -19,6 +17,19 @@ io.on('connection', socket => {
     socket.on('disconnect', () => {
       socket.to(room).emit('user-disconnected', socket.id);
     });
+  });
+
+  // Handle offer, answer, and ICE candidates
+  socket.on('offer', (offer, room) => {
+    socket.to(room).emit('offer', offer);
+  });
+
+  socket.on('answer', (answer, room) => {
+    socket.to(room).emit('answer', answer);
+  });
+
+  socket.on('ice-candidate', (candidate, room) => {
+    socket.to(room).emit('ice-candidate', candidate);
   });
 });
 
