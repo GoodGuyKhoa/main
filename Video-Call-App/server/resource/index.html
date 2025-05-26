@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weebty</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="logo">Weebty</h1>
+        <div class="auth-buttons">
+          <button class="auth-btn">Register</button>
+          <button class="auth-btn">Login</button>
+        </div>
+      </header>
+
+      <main>
+        <h2 class="heading">Party Up Travelers</h2>
+        <p class="subheading">
+          It’s time for us to connect, gather around<br />
+          and celebrate for our journey together
+        </p>
+
+        <div id="initial-buttons">
+          <button id="newPartyBtn" class="main-btn">New Party</button>
+          <button id="joinPartyBtn" class="main-btn secondary">
+            Join existing Party
+          </button>
+        </div>
+
+        <div id="nameInputContainer" class="hidden">
+          <a href="#" id="backBtn" class="back-link">← Back</a>
+          <div class="name-input-wrap">
+            <input
+              type="text"
+              id="nameInput"
+              placeholder="Enter Your Name Traveler"
+            />
+            <button id="goBtn" class="go-btn">→</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const newPartyBtn = document.getElementById("newPartyBtn");
+      const initialButtons = document.getElementById("initial-buttons");
+      const nameInputContainer = document.getElementById("nameInputContainer");
+      const backBtn = document.getElementById("backBtn");
+      const goBtn = document.getElementById("goBtn");
+      const nameInput = document.getElementById("nameInput");
+
+      newPartyBtn.addEventListener("click", () => {
+        initialButtons.classList.add("hidden");
+        nameInputContainer.classList.remove("hidden");
+      });
+
+      backBtn.addEventListener("click", () => {
+        nameInputContainer.classList.add("hidden");
+        initialButtons.classList.remove("hidden");
+      });
+
+      goBtn.addEventListener("click", () => {
+        const name = nameInput.value.trim();
+        if (!name) {
+          alert("Please enter your name.");
+          return;
+        }
+        const roomId = crypto.randomUUID();
+        window.location.href = `/room.html?room=${roomId}&name=${encodeURIComponent(
+          name
+        )}`;
+      });
+    </script>
+  </body>
+</html>

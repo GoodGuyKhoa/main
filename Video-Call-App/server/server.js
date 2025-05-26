@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../server/resource')));
 
 io.on('connection', socket => {
   socket.on('join-room', room => {
@@ -18,7 +18,7 @@ io.on('connection', socket => {
       socket.to(room).emit('user-disconnected', socket.id);
     });
   });
-
+  
   // Handle offer, answer, and ICE candidates
   socket.on('offer', (offer, room) => {
     socket.to(room).emit('offer', offer);
